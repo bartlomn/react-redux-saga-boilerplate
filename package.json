@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --env development",
+    "start": "webpack-dashboard -- webpack-dev-server --env development",
     "build": "webpack --env production"
   },
   "keywords": [],
@@ -12,8 +12,10 @@
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^4.0.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "webpack": "^3.5.5",
+    "webpack-dashboard": "^1.0.0-5",
     "webpack-dev-server": "^2.7.1"
   }
 }

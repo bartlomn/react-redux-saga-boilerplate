@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
@@ -20,6 +22,8 @@ const commonConfig = {
     filename: '[name].js',
   },
   plugins: [
+    new FriendlyErrorsWebpackPlugin(),
+    new DashboardPlugin({ port: process.env.PORT }),
     new HtmlWebpackPlugin({
       title: 'Webpack demo',
     }),
@@ -35,8 +39,8 @@ const developmentConfig = () => {
       // routing works. 
       historyApiFallback: true,
 
-      // Display only errors to reduce the amount of output.
-      stats: 'errors-only',
+      // required by friendly-errors-webpack-plugin
+      quiet: true,
 
       // Parse host and port from env to allow customization.
       //
@@ -47,7 +51,7 @@ const developmentConfig = () => {
       // unlike default `localhost`.
       host: process.env.HOST, // Defaults to `localhost`
       port: process.env.PORT, // Defaults to 8080
-    },
+    }
   };
 
   return Object.assign(
