@@ -36,7 +36,7 @@ const developmentConfig = () => {
   const config = {
     devServer: {
       // Enable history API fallback so HTML5 History API based
-      // routing works. 
+      // routing works.
       historyApiFallback: true,
 
       // required by friendly-errors-webpack-plugin
@@ -51,15 +51,37 @@ const developmentConfig = () => {
       // unlike default `localhost`.
       host: process.env.HOST, // Defaults to `localhost`
       port: process.env.PORT, // Defaults to 8080
-    }
+      // an overlay in the browser
+      // overlay: true is equivalent
+      overlay: {
+        errors: true,
+        warnings: true,
+      },
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          // want to ensure that ESLint gets executed before anything else
+          // using the enforce field. It allows to guarantee that linting
+          // happens before any other processing.
+          enforce: 'pre',
+          loader: 'eslint-loader',
+          options: {
+            emitWarning: true,
+          },
+        },
+      ],
+    },
   };
 
   return Object.assign(
     {},
     commonConfig,
-    config
+    config,
   );
 };
+
 
 module.exports = (env) => {
   if (env === 'production') {
