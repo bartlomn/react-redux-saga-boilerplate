@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 
 const parts = require('./webpack.parts');
@@ -25,6 +26,7 @@ const commonConfig = merge([
       // publicPath: `http://${ process.env.HOST }:${ process.env.PORT }/`,
     },
     plugins: [
+      new StyleLintPlugin({ configFile: './.stylelintrc' }),
       new FriendlyErrorsWebpackPlugin(),
       new DashboardPlugin({ port: process.env.PORT }),
       new HtmlWebpackPlugin({
