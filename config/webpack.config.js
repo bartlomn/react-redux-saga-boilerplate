@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 const path = require('path');
+
+const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
@@ -8,7 +10,6 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 
 const parts = require('./webpack.parts');
-
 
 const PATHS = {
   app: path.join(__dirname, '..', 'app'),
@@ -23,7 +24,6 @@ const commonConfig = merge([
     output: {
       path: PATHS.build,
       filename: '[name].js',
-      // publicPath: `http://${ process.env.HOST }:${ process.env.PORT }/`,
     },
     plugins: [
       new StyleLintPlugin({ configFile: './.stylelintrc' }),
@@ -34,12 +34,15 @@ const commonConfig = merge([
       }),
     ],
   },
-  parts.lintJavaScript({ include: PATHS.app, options: { emitWarning: true } }),
+  parts.lintJavaScript({ include: PATHS.app, options: { emitWarning: true }}),
   parts.loadAssets(),
 ]);
 
 const productionConfig = merge([
   parts.extractCSS(),
+  parts.purifyCSS({
+    paths: glob.sync(`${ PATHS.app }/**/*.js`, { nodir: true }),
+  }),
 ]);
 
 const developmentConfig = merge([

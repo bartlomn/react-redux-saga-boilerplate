@@ -6,12 +6,15 @@
         "node": true
     },
     "rules": {
-      "template-curly-spacing": ["error", "always"],
-      "array-bracket-spacing": ["error", "always", { "objectsInArrays": false }],
+      "array-bracket-spacing": ["error", "always", {
+        "objectsInArrays": false }],
       "import/no-extraneous-dependencies": "off",
       "import/order": ["error", {
-        "groups": ["index", "sibling", "parent", "internal", "external", "builtin"],
-        "newlines-between": "always"
-        }]
+        "groups": ["builtin", "internal", "external", "index", "sibling", "parent"],
+        "newlines-between": "always" }],
+      "object-curly-spacing": ["error", "always", {
+        "arraysInObjects": false,
+        "objectsInObjects": false }],
+      "template-curly-spacing": ["error", "always"]
     }
 }

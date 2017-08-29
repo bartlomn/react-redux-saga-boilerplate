@@ -1,5 +1,6 @@
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -44,6 +45,15 @@ exports.loadSCSS = ({ include, exclude } = {}) => ({
   module: {
     rules: [
       {
+        test: /\.css$/,
+        include,
+        exclude,
+        use: [ 'style-loader', {
+          loader: 'css-loader',
+        },
+        this.autoprefix(true) ],
+      },
+      {
         test: /\.(scss|sass)$/,
         include,
         exclude,
@@ -52,7 +62,7 @@ exports.loadSCSS = ({ include, exclude } = {}) => ({
           options: {
             modules: true,
             sourceMap: true,
-            importLoaders: 1,
+            importLoaders: 2,
           },
         },
         this.autoprefix(true),
@@ -76,6 +86,16 @@ exports.extractCSS = () => {
     module: {
       rules: [
         {
+          test: /\.css$/,
+          use: plugin.extract({
+            fallback: 'style-loader',
+            use: [{
+              loader: 'css-loader',
+            },
+            this.autoprefix() ],
+          }),
+        },
+        {
           test: /\.(scss|sass)$/,
           use: plugin.extract({
             fallback: 'style-loader',
@@ -84,7 +104,8 @@ exports.extractCSS = () => {
               options: {
                 modules: true,
                 sourceMap: false,
-                importLoaders: 1,
+                importLoaders: 2,
+                localIdentName: 'purify_[hash:base64:5]',
               },
             },
             this.autoprefix(),
@@ -110,4 +131,10 @@ exports.autoprefix = (sourceMap = false) => ({
     ]),
     sourceMap,
   },
+});
+
+exports.purifyCSS = ({ paths, minimize = true }) => ({
+  plugins: [
+    new PurifyCSSPlugin({ paths, minimize, purifyOptions: { whitelist: [ '*purify*' ]}}),
+  ],
 });
