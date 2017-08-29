@@ -22,6 +22,7 @@ const commonConfig = merge([
     output: {
       path: PATHS.build,
       filename: '[name].js',
+      // publicPath: `http://${ process.env.HOST }:${ process.env.PORT }/`,
     },
     plugins: [
       new FriendlyErrorsWebpackPlugin(),
@@ -32,7 +33,8 @@ const commonConfig = merge([
     ],
   },
   parts.lintJavaScript({ include: PATHS.app, options: { emitWarning: true } }),
-  parts.loadCSS(),
+  parts.loadAssets(),
+  parts.loadSCSS(),
 ]);
 
 const productionConfig = merge([

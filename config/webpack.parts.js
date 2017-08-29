@@ -11,6 +11,17 @@ exports.devServer = ({ host, port } = {}) => ({
   },
 });
 
+exports.loadAssets = () => ({
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|jpg|jpeg)$/,
+        loader: 'url-loader?limit=100000',
+      },
+    ],
+  },
+});
+
 exports.lintJavaScript = ({ include, exclude, options }) => ({
   module: {
     rules: [
@@ -26,17 +37,24 @@ exports.lintJavaScript = ({ include, exclude, options }) => ({
   },
 });
 
-exports.loadCSS = ({ include, exclude } = {}) => ({
+exports.loadSCSS = ({ include, exclude } = {}) => ({
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.(scss|sass)$/,
         include,
         exclude,
         use: ['style-loader', {
           loader: 'css-loader',
           options: {
             modules: true,
+            sourceMap: true,
+            importLoaders: 1,
+          },
+        }, {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
           },
         }],
       },

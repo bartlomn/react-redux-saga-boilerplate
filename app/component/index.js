@@ -1,4 +1,4 @@
-import styles from './main.css';
+import styles from './component.scss';
 
 export default (text = 'Hello wooooorld') => {
   const element = document.createElement('div');
