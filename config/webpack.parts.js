@@ -1,3 +1,4 @@
+const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 exports.devServer = ({ host, port } = {}) => ({
@@ -53,7 +54,9 @@ exports.loadSCSS = ({ include, exclude } = {}) => ({
             sourceMap: true,
             importLoaders: 1,
           },
-        }, {
+        },
+        this.autoprefix(true),
+        {
           loader: 'sass-loader',
           options: {
             sourceMap: true,
@@ -83,7 +86,9 @@ exports.extractCSS = () => {
                 sourceMap: false,
                 importLoaders: 1,
               },
-            }, {
+            },
+            this.autoprefix(),
+            {
               loader: 'sass-loader',
               options: {
                 sourceMap: false,
@@ -96,3 +101,13 @@ exports.extractCSS = () => {
     plugins: [ plugin ],
   };
 };
+
+exports.autoprefix = (sourceMap = false) => ({
+  loader: 'postcss-loader',
+  options: {
+    plugins: () => ([
+      autoprefixer(),
+    ]),
+    sourceMap,
+  },
+});

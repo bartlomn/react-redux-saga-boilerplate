@@ -7,6 +7,11 @@
     },
     "rules": {
       "template-curly-spacing": ["error", "always"],
-      "array-bracket-spacing": ["error", "always", { "objectsInArrays": false }]
+      "array-bracket-spacing": ["error", "always", { "objectsInArrays": false }],
+      "import/no-extraneous-dependencies": "off",
+      "import/order": ["error", {
+        "groups": ["index", "sibling", "parent", "internal", "external", "builtin"],
+        "newlines-between": "always"
+        }]
     }
 }
