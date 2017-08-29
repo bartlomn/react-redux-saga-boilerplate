@@ -6,10 +6,12 @@ const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 
-const parts = require('./webpack.parts');
+const assets = require('./assets.part');
+const dev = require('./dev.part');
+const linters = require('./linters.part');
+const styles = require('./styles.part');
 
 const PATHS = {
   app: path.join(__dirname, '..', 'app'),
@@ -26,7 +28,6 @@ const commonConfig = merge([
       filename: '[name].js',
     },
     plugins: [
-      new StyleLintPlugin({ configFile: './.stylelintrc' }),
       new FriendlyErrorsWebpackPlugin(),
       new DashboardPlugin({ port: process.env.PORT }),
       new HtmlWebpackPlugin({
@@ -34,20 +35,24 @@ const commonConfig = merge([
       }),
     ],
   },
-  parts.lintJavaScript({ include: PATHS.app, options: { emitWarning: true }}),
-  parts.loadAssets(),
+  linters.lintStyles(),
+  assets.loadFonts({ options: { limit: 15000 }}),
 ]);
 
 const productionConfig = merge([
-  parts.extractCSS(),
-  parts.purifyCSS({
+  linters.lintJavaScript({ include: PATHS.app, failOnWarning: true, failOnError: true }),
+  styles.extractCSS(),
+  styles.purifyCSS({
     paths: glob.sync(`${ PATHS.app }/**/*.js`, { nodir: true }),
   }),
+  assets.loadImages({ options: { limit: 15000 }}),
 ]);
 
 const developmentConfig = merge([
-  parts.loadSCSS(),
-  parts.devServer({ host: process.env.HOST, port: process.env.PORT }),
+  linters.lintJavaScript({ include: PATHS.app }),
+  styles.loadSCSS(),
+  assets.loadImages(),
+  dev.devServer({ host: process.env.HOST, port: process.env.PORT }),
 ]);
 
 module.exports = (env) => {

@@ -1,8 +1,9 @@
 {
   "name": "webpack-playground",
   "version": "1.0.0",
-  "description": "",
+  "description": "testing current state webpack-react stack",
   "main": "index.js",
+  "repository": "git@bitbucket.org:bnowak/webpack-playground.git",
   "scripts": {
     "build": "webpack --env production --config 'config/webpack.config.js'",
     "lint:js": "eslint . --cache --ignore-path .gitignore",
