@@ -36,13 +36,14 @@ const commonConfig = merge([
   },
   parts.lintJavaScript({ include: PATHS.app, options: { emitWarning: true } }),
   parts.loadAssets(),
-  parts.loadSCSS(),
 ]);
 
 const productionConfig = merge([
+  parts.extractCSS(),
 ]);
 
 const developmentConfig = merge([
+  parts.loadSCSS(),
   parts.devServer({ host: process.env.HOST, port: process.env.PORT }),
 ]);
 

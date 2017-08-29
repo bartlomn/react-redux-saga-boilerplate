@@ -6,6 +6,7 @@
         "node": true
     },
     "rules": {
-      "template-curly-spacing": ["error", "always"]
+      "template-curly-spacing": ["error", "always"],
+      "array-bracket-spacing": ["error", "always", { "objectsInArrays": false }]
     }
 }
