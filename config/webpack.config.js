@@ -47,13 +47,13 @@ const productionConfig = () => merge([
       resource.match( /\.js$/ )
     ),
   }]),
-  dev.sourceMaps({ type: 'source-map' }),
   dev.minifyJavaScript(),
   linters.lintJavaScript({ include: PATHS.app, failOnWarning: true, failOnError: true }),
   styles.extractCSS(),
   styles.purifyCSS({
     paths: glob.sync( `${ PATHS.app }/**/*.js`, { nodir: true }),
   }),
+  styles.minifyCSS(),
   assets.loadImages({ options: { limit: 15000 }}),
 ]);
 

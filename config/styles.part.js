@@ -1,6 +1,8 @@
 const autoprefixer = require( 'autoprefixer' );
 const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 const PurifyCSSPlugin = require( 'purifycss-webpack' );
+const OptimizeCSSAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
+const cssnano = require( 'cssnano' );
 
 exports.loadSCSS = ({ include, exclude } = {}) => ({
   module: {
@@ -94,8 +96,25 @@ exports.autoprefix = ( sourceMap = false ) => ({
   },
 });
 
-exports.purifyCSS = ({ paths, minimize = true }) => ({
+exports.purifyCSS = ({ paths, minimize = false }) => ({
   plugins: [
     new PurifyCSSPlugin({ paths, minimize, purifyOptions: { whitelist: [ '*purify*' ]}}),
+  ],
+});
+
+exports.minifyCSS = () => ({
+  plugins: [
+    new OptimizeCSSAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: {
+        options: {
+          discardComments: {
+            removeAll: true,
+          },
+          safe: true,
+        },
+      },
+      canPrint: false,
+    }),
   ],
 });
