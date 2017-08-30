@@ -1,6 +1,6 @@
-const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const PurifyCSSPlugin = require('purifycss-webpack');
+const autoprefixer = require( 'autoprefixer' );
+const ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
+const PurifyCSSPlugin = require( 'purifycss-webpack' );
 
 exports.loadSCSS = ({ include, exclude } = {}) => ({
   module: {
@@ -12,7 +12,7 @@ exports.loadSCSS = ({ include, exclude } = {}) => ({
         use: [ 'style-loader', {
           loader: 'css-loader',
         },
-        this.autoprefix(true) ],
+        this.autoprefix( true ) ],
       },
       {
         test: /\.(scss|sass)$/,
@@ -26,7 +26,7 @@ exports.loadSCSS = ({ include, exclude } = {}) => ({
             importLoaders: 2,
           },
         },
-        this.autoprefix(true),
+        this.autoprefix( true ),
         {
           loader: 'sass-loader',
           options: {
@@ -84,7 +84,7 @@ exports.extractCSS = () => {
   };
 };
 
-exports.autoprefix = (sourceMap = false) => ({
+exports.autoprefix = ( sourceMap = false ) => ({
   loader: 'postcss-loader',
   options: {
     plugins: () => ([

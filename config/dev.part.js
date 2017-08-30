@@ -1,3 +1,5 @@
+const webpack = require( 'webpack' );
+
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
     historyApiFallback: true,
@@ -13,4 +15,10 @@ exports.devServer = ({ host, port, quiet = true } = {}) => ({
 
 exports.sourceMaps = ({ type }) => ({
   devtool: type,
+});
+
+exports.extractBundles = bundles => ({
+  plugins: bundles.map( bundle => (
+    new webpack.optimize.CommonsChunkPlugin( bundle )
+  )),
 });

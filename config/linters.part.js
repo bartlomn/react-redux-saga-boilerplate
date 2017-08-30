@@ -1,4 +1,4 @@
-const StyleLintPlugin = require('stylelint-webpack-plugin');
+const StyleLintPlugin = require( 'stylelint-webpack-plugin' );
 
 exports.lintJavaScript = ({ include, failOnWarning = false, failOnError = false } = {}) => ({
   module: {
@@ -21,7 +21,7 @@ exports.lintJavaScript = ({ include, failOnWarning = false, failOnError = false 
 });
 
 exports.lintStyles = () => ({
-    plugins: [
-        new StyleLintPlugin({ configFile: './.stylelintrc' }),
-    ],
+  plugins: [
+    new StyleLintPlugin({ configFile: './.stylelintrc' }),
+  ],
 });
