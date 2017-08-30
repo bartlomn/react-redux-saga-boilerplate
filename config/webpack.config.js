@@ -43,6 +43,7 @@ const commonConfig = merge([
 
 const productionConfig = merge([
   dev.clean( PATHS.build ),
+  dev.recommendChunkSizeLimits({ maxEntrypointSize: 250000 }),
   dev.attachRevision(),
   dev.extractBundles([{
     name: 'vendor',
@@ -52,13 +53,14 @@ const productionConfig = merge([
       resource.match( /\.js$/ )
     ),
   }]),
+  dev.sourceMaps({ type: 'source-map' }),
+  dev.minifyJavaScript(),
   linters.lintJavaScript({ include: PATHS.app, failOnWarning: true, failOnError: true }),
   styles.extractCSS(),
   styles.purifyCSS({
     paths: glob.sync( `${ PATHS.app }/**/*.js`, { nodir: true }),
   }),
   assets.loadImages({ options: { limit: 15000 }}),
-  dev.sourceMaps({ type: 'source-map' }),
 ]);
 
 const developmentConfig = merge([

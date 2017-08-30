@@ -3,6 +3,7 @@ const path = require( 'path' );
 const webpack = require( 'webpack' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const GitRevisionPlugin = require( 'git-revision-webpack-plugin' );
+const BabiliPlugin = require( 'babili-webpack-plugin' );
 
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
@@ -38,5 +39,19 @@ exports.attachRevision = () => ({
     new webpack.BannerPlugin({
       banner: `project revision: ${ new GitRevisionPlugin().version() }`,
     }),
+  ],
+});
+
+exports.recommendChunkSizeLimits = ({ maxEntrypointSize = 100000, maxAssetSize = 500000 }) => ({
+  performance: {
+    hints: 'warning', // 'error' or false are valid too
+    maxEntrypointSize, // in bytes
+    maxAssetSize, // in bytes
+  },
+});
+
+exports.minifyJavaScript = () => ({
+  plugins: [
+    new BabiliPlugin(),
   ],
 });
