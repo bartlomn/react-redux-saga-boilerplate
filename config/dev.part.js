@@ -1,4 +1,7 @@
+const path = require( 'path' );
+
 const webpack = require( 'webpack' );
+const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
@@ -21,4 +24,10 @@ exports.extractBundles = bundles => ({
   plugins: bundles.map( bundle => (
     new webpack.optimize.CommonsChunkPlugin( bundle )
   )),
+});
+
+exports.clean = strPath => ({
+  plugins: [
+    new CleanWebpackPlugin([ strPath ], { root: path.resolve( __dirname, '..' ), verbose: true }),
+  ],
 });
