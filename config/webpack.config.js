@@ -4,7 +4,6 @@ const path = require( 'path' );
 
 const glob = require( 'glob' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
-const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const merge = require( 'webpack-merge' );
 
 const assets = require( './assets.part' );
@@ -28,10 +27,7 @@ const commonConfig = () => merge([
       filename: '[name].js',
     },
     plugins: [
-      new FriendlyErrorsWebpackPlugin(),
-      new HtmlWebpackPlugin({
-        title: 'Webpack demo',
-      }),
+      new HtmlWebpackPlugin({ title: 'Webpack playground' }),
     ],
   },
   linters.lintStyles(),
@@ -72,6 +68,7 @@ const developmentConfig = () => merge([
   styles.loadSCSS(),
   assets.loadImages(),
   dev.devServer({ host: process.env.HOST, port: process.env.PORT }),
+  dev.friendlyErrorsPlugin(),
   dev.dashboardPlugin( process.env.NODE_ENV, process.env.PORT ),
 ]);
 

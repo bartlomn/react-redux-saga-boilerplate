@@ -1,6 +1,7 @@
 const path = require( 'path' );
 
 const webpack = require( 'webpack' );
+const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const GitRevisionPlugin = require( 'git-revision-webpack-plugin' );
 const BabiliPlugin = require( 'babili-webpack-plugin' );
@@ -67,3 +68,9 @@ exports.dashboardPlugin = ( env, port ) => {
   }
   return {};
 };
+
+exports.friendlyErrorsPlugin = () => ({
+  plugins: [
+    new FriendlyErrorsWebpackPlugin(),
+  ],
+});

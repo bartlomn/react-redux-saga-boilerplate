@@ -8,8 +8,8 @@
     "build": "webpack --env production --config 'config/webpack.config.js'",
     "lint:js": "eslint . --cache --ignore-path .gitignore",
     "lint:css": "stylelint app/**/*.css",
-    "start": "webpack-dev-server --env development --config 'config/webpack.config.js'",
-    "start:dashboard": "webpack-dashboard -- webpack-dev-server --env development  --config 'config/webpack.config.js'"
+    "start": "webpack-dev-server --env development --config 'config/webpack.config.js' --open",
+    "start:dashboard": "webpack-dashboard -- webpack-dev-server --env development  --config 'config/webpack.config.js' --open"
   },
   "keywords": [],
   "author": "",
