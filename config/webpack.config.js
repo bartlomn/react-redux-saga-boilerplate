@@ -11,6 +11,7 @@ const merge = require('webpack-merge');
 const assets = require('./assets.part');
 const dev = require('./dev.part');
 const linters = require('./linters.part');
+const scripts = require('./scripts.part');
 const styles = require('./styles.part');
 
 const PATHS = {
@@ -21,7 +22,7 @@ const PATHS = {
 const commonConfig = merge([
   {
     entry: {
-      app: PATHS.app,
+      app: [ 'babel-polyfill', PATHS.app ],
     },
     output: {
       path: PATHS.build,
@@ -36,6 +37,7 @@ const commonConfig = merge([
     ],
   },
   linters.lintStyles(),
+  scripts.loadJavaScript({ include: PATHS.app }),
   assets.loadFonts({ options: { limit: 15000 }}),
 ]);
 
@@ -56,6 +58,8 @@ const developmentConfig = merge([
 ]);
 
 module.exports = (env) => {
+  process.env.BABEL_ENV = env;
+
   if (env === 'production') {
     return merge(commonConfig, productionConfig);
   }
