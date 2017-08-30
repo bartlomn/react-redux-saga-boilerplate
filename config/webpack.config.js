@@ -48,9 +48,16 @@ const productionConfig = merge([
     paths: glob.sync(`${ PATHS.app }/**/*.js`, { nodir: true }),
   }),
   assets.loadImages({ options: { limit: 15000 }}),
+  dev.sourceMaps({ type: 'source-map' }),
 ]);
 
 const developmentConfig = merge([
+  {
+    output: {
+      devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
+    },
+  },
+  dev.sourceMaps({ type: 'cheap-module-eval-source-map' }),
   linters.lintJavaScript({ include: PATHS.app }),
   styles.loadSCSS(),
   assets.loadImages(),

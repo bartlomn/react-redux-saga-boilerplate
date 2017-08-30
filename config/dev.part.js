@@ -10,3 +10,7 @@ exports.devServer = ({ host, port, quiet = true } = {}) => ({
     },
   },
 });
+
+exports.sourceMaps = ({ type }) => ({
+  devtool: type,
+});
