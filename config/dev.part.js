@@ -2,6 +2,7 @@ const path = require( 'path' );
 
 const webpack = require( 'webpack' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const GitRevisionPlugin = require( 'git-revision-webpack-plugin' );
 
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
@@ -29,5 +30,13 @@ exports.extractBundles = bundles => ({
 exports.clean = strPath => ({
   plugins: [
     new CleanWebpackPlugin([ strPath ], { root: path.resolve( __dirname, '..' ), verbose: true }),
+  ],
+});
+
+exports.attachRevision = () => ({
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: `project revision: ${ new GitRevisionPlugin().version() }`,
+    }),
   ],
 });

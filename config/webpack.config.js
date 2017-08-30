@@ -43,6 +43,7 @@ const commonConfig = merge([
 
 const productionConfig = merge([
   dev.clean( PATHS.build ),
+  dev.attachRevision(),
   dev.extractBundles([{
     name: 'vendor',
     minChunks: ({ resource }) => (
