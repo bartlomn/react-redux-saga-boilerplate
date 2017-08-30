@@ -5,7 +5,6 @@ const path = require( 'path' );
 const glob = require( 'glob' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
-const DashboardPlugin = require( 'webpack-dashboard/plugin' );
 const merge = require( 'webpack-merge' );
 
 const assets = require( './assets.part' );
@@ -19,7 +18,7 @@ const PATHS = {
   build: path.join( __dirname, '..', 'build' ),
 };
 
-const commonConfig = merge([
+const commonConfig = () => merge([
   {
     entry: {
       app: [ 'babel-polyfill', PATHS.app ],
@@ -30,7 +29,6 @@ const commonConfig = merge([
     },
     plugins: [
       new FriendlyErrorsWebpackPlugin(),
-      new DashboardPlugin({ port: process.env.PORT }),
       new HtmlWebpackPlugin({
         title: 'Webpack demo',
       }),
@@ -41,7 +39,7 @@ const commonConfig = merge([
   assets.loadFonts({ options: { limit: 15000 }}),
 ]);
 
-const productionConfig = merge([
+const productionConfig = () => merge([
   dev.clean( PATHS.build ),
   dev.recommendChunkSizeLimits({ maxEntrypointSize: 250000 }),
   dev.attachRevision(),
@@ -63,7 +61,7 @@ const productionConfig = merge([
   assets.loadImages({ options: { limit: 15000 }}),
 ]);
 
-const developmentConfig = merge([
+const developmentConfig = () => merge([
   {
     output: {
       devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
@@ -74,14 +72,15 @@ const developmentConfig = merge([
   styles.loadSCSS(),
   assets.loadImages(),
   dev.devServer({ host: process.env.HOST, port: process.env.PORT }),
+  dev.dashboardPlugin( process.env.NODE_ENV, process.env.PORT ),
 ]);
 
 module.exports = ( env ) => {
-  process.env.BABEL_ENV = env;
+  process.env.BABEL_ENV = process.env.NODE_ENV = env;
 
   if ( env === 'production' ) {
-    return merge( commonConfig, productionConfig );
+    return merge( commonConfig(), productionConfig());
   }
 
-  return merge( commonConfig, developmentConfig );
+  return merge( commonConfig(), developmentConfig());
 };

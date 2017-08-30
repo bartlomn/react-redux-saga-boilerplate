@@ -12,6 +12,7 @@
       "import/order": ["error", {
         "groups": ["builtin", "internal", "external", "index", "sibling", "parent"],
         "newlines-between": "always" }],
+      "no-multi-assign": "off",
       "object-curly-spacing": ["error", "always", {
         "arraysInObjects": false,
         "objectsInObjects": false }],

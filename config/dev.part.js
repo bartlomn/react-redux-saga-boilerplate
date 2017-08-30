@@ -55,3 +55,15 @@ exports.minifyJavaScript = () => ({
     new BabiliPlugin(),
   ],
 });
+
+exports.dashboardPlugin = ( env, port ) => {
+  if ( env === 'development' ) {
+    const DashboardPlugin = require( 'webpack-dashboard/plugin' ); // eslint-disable-line
+    return {
+      plugins: [
+        new DashboardPlugin({ port }),
+      ],
+    };
+  }
+  return {};
+};
