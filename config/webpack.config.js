@@ -24,7 +24,7 @@ const commonConfig = () => merge([
     },
     output: {
       path: PATHS.build,
-      filename: '[name].js',
+      filename: '[name].[chunkhash].js',
     },
     plugins: [
       new HtmlWebpackPlugin({ title: 'Webpack playground' }),
@@ -33,7 +33,7 @@ const commonConfig = () => merge([
   dev.attachRevision(),
   linters.lintStyles(),
   scripts.transpileJavaScript({ include: PATHS.app }),
-  assets.loadFonts({ options: { limit: 15000 }}),
+  assets.loadFonts({ options: { limit: 15000, name: '[name].[hash:8].[ext]' }}),
 ]);
 
 const productionConfig = () => merge([
@@ -54,7 +54,7 @@ const productionConfig = () => merge([
     paths: glob.sync( `${ PATHS.app }/**/*.js`, { nodir: true }),
   }),
   styles.minifyCSS(),
-  assets.loadImages({ options: { limit: 15000 }}),
+  assets.loadImages({ options: { limit: 15000, name: '[name].[hash:8].[ext]' }}),
 ]);
 
 const developmentConfig = () => merge([

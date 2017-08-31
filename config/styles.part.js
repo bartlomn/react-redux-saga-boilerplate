@@ -42,7 +42,7 @@ exports.loadSCSS = ({ include, exclude } = {}) => ({
 
 exports.extractCSS = () => {
   const plugin = new ExtractTextPlugin({
-    filename: '[name].css',
+    filename: '[name].[chunkhash].css',
   });
 
   return {
