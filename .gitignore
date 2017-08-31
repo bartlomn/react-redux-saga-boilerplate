@@ -115,5 +115,6 @@ $RECYCLE.BIN/
 # build dir
 build
 
-# build stats file
-docs/stats.json
+# build reports
+reports/*
+!reports/.gitkeep
