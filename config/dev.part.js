@@ -6,6 +6,7 @@ const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const GitRevisionPlugin = require( 'git-revision-webpack-plugin' );
 const BabiliPlugin = require( 'babili-webpack-plugin' );
 const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
+const DuplicatePackageCheckerPlugin = require( 'duplicate-package-checker-webpack-plugin' );
 
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
@@ -113,6 +114,17 @@ exports.bundleAnalyserPlugin = () => ({
       statsOptions: null,
       // Log level. Can be 'info', 'warn', 'error' or 'silent'.
       logLevel: 'error',
+    }),
+  ],
+});
+
+exports.checkAgainstDuplicatePackages = () => ({
+  plugins: [
+    new DuplicatePackageCheckerPlugin({
+      // Also show module that is requiring each duplicate package
+      verbose: true,
+      // Emit errors instead of warnings
+      emitError: true,
     }),
   ],
 });

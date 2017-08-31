@@ -61,6 +61,7 @@ const productionConfig = () => merge([
   ]),
   dev.minifyJavaScript(),
   dev.bundleAnalyserPlugin(),
+  dev.checkAgainstDuplicatePackages(),
   linters.lintJavaScript({ include: PATHS.app, failOnWarning: true, failOnError: true }),
   styles.extractCSS(),
   styles.purifyCSS({
