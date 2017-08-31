@@ -5,6 +5,7 @@ const path = require( 'path' );
 const glob = require( 'glob' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const merge = require( 'webpack-merge' );
+const webpack = require( 'webpack' );
 
 const assets = require( './assets.part' );
 const dev = require( './dev.part' );
@@ -37,16 +38,27 @@ const commonConfig = () => merge([
 ]);
 
 const productionConfig = () => merge([
+  {
+    plugins: [
+      new webpack.HashedModuleIdsPlugin(),
+    ],
+  },
   dev.clean( PATHS.build ),
   dev.recommendChunkSizeLimits({ maxEntrypointSize: 250000 }),
-  dev.extractBundles([{
-    name: 'vendor',
-    minChunks: ({ resource }) => (
-      resource &&
-      resource.indexOf( 'node_modules' ) >= 0 &&
-      resource.match( /\.js$/ )
-    ),
-  }]),
+  dev.extractBundles([
+    {
+      name: 'vendor',
+      minChunks: ({ resource }) => (
+        resource &&
+        resource.indexOf( 'node_modules' ) >= 0 &&
+        resource.match( /\.js$/ )
+      ),
+    },
+    {
+      name: 'manifest',
+      minChunks: Infinity,
+    },
+  ]),
   dev.minifyJavaScript(),
   linters.lintJavaScript({ include: PATHS.app, failOnWarning: true, failOnError: true }),
   styles.extractCSS(),
