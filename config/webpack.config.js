@@ -30,15 +30,15 @@ const commonConfig = () => merge([
       new HtmlWebpackPlugin({ title: 'Webpack playground' }),
     ],
   },
+  dev.attachRevision(),
   linters.lintStyles(),
-  scripts.loadJavaScript({ include: PATHS.app }),
+  scripts.transpileJavaScript({ include: PATHS.app }),
   assets.loadFonts({ options: { limit: 15000 }}),
 ]);
 
 const productionConfig = () => merge([
   dev.clean( PATHS.build ),
   dev.recommendChunkSizeLimits({ maxEntrypointSize: 250000 }),
-  dev.attachRevision(),
   dev.extractBundles([{
     name: 'vendor',
     minChunks: ({ resource }) => (

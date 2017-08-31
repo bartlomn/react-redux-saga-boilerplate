@@ -35,10 +35,13 @@ exports.clean = strPath => ({
   ],
 });
 
-exports.attachRevision = () => ({
+exports.attachRevision = ( revision = new GitRevisionPlugin().version()) => ({
   plugins: [
     new webpack.BannerPlugin({
-      banner: `project revision: ${ new GitRevisionPlugin().version() }`,
+      banner: `project revision: ${ revision }`,
+    }),
+    new webpack.DefinePlugin({
+      __APP_REVISION__: JSON.stringify( revision ),
     }),
   ],
 });

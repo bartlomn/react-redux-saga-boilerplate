@@ -1,4 +1,4 @@
-exports.loadJavaScript = ({ include, exclude }) => ({
+exports.transpileJavaScript = ({ include, exclude }) => ({
   module: {
     rules: [
       {

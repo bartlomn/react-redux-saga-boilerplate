@@ -5,6 +5,9 @@
         "browser": true,
         "node": true
     },
+    "globals": {
+      "__APP_REVISION__": false
+    },
     "rules": {
       "array-bracket-spacing": ["error", "always", {
         "objectsInArrays": false }],
@@ -13,6 +16,7 @@
         "groups": ["builtin", "internal", "external", "index", "sibling", "parent"],
         "newlines-between": "always" }],
       "no-multi-assign": "off",
+      "no-global-assign": "error",
       "object-curly-spacing": ["error", "always", {
         "arraysInObjects": false,
         "objectsInObjects": false }],
