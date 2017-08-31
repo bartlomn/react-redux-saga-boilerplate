@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "git@bitbucket.org:bnowak/webpack-playground.git",
   "scripts": {
-    "build": "webpack --env production --config 'config/webpack.config.js'",
+    "build": "webpack --env production --config 'config/webpack.config.js' --progress --profile --json > 'docs/stats.json'",
     "lint:js": "eslint . --cache --ignore-path .gitignore",
     "lint:css": "stylelint app/**/*.css",
     "start": "webpack-dev-server --env development --config 'config/webpack.config.js' --open",
