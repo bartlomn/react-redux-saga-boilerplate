@@ -14,5 +14,14 @@
         "useBuiltIns": true
       }
     ]
-  ]
+  ],
+  "env": {
+    "karma": {
+      "plugins": [
+        [
+          "istanbul", { "exclude": ["app/**/*.test.js", "tests/*.js"] }
+        ]
+      ]
+    }
+  }
 }
