@@ -7,6 +7,7 @@ const GitRevisionPlugin = require( 'git-revision-webpack-plugin' );
 const BabiliPlugin = require( 'babili-webpack-plugin' );
 const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 const DuplicatePackageCheckerPlugin = require( 'duplicate-package-checker-webpack-plugin' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
@@ -125,6 +126,20 @@ exports.checkAgainstDuplicatePackages = () => ({
       verbose: true,
       // Emit errors instead of warnings
       emitError: true,
+    }),
+  ],
+});
+
+exports.page = ({
+  pagePath = '',
+  template = require.resolve( 'html-webpack-plugin/default_index.ejs' ),
+  title,
+} = {}) => ({
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: `${ pagePath && `${ pagePath }/` }index.html`,
+      template,
+      title,
     }),
   ],
 });
