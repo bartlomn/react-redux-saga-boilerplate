@@ -1,5 +1,4 @@
 // Skip execution in Node
-console.info(__dirname);
 if ( module.hot ) {
   const context = require.context(
     'mocha-loader!./../app/', // Process through mocha-loader
