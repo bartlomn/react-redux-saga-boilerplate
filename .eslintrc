@@ -21,6 +21,10 @@
       "object-curly-spacing": ["error", "always", {
         "arraysInObjects": false,
         "objectsInObjects": false }],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-curly-spacing": ["error", {"when": "always", "children": true, "spacing": {
+        "objectLiterals": "never"
+      }}],
       "space-in-parens": ["error", "always", { "exceptions": ["[]", "{}", "()"] }],
       "template-curly-spacing": ["error", "always"]
     }
