@@ -118,4 +118,6 @@ build
 # build reports
 reports/*
 !reports/.gitkeep
+
+# webpack cache dir
 .webpack/cache
