@@ -3,8 +3,7 @@
     "extends": "eslint-config-airbnb",
     "env": {
         "browser": true,
-        "node": true,
-        "mocha": true
+        "node": true
     },
     "globals": {
       "__APP_REVISION__": false
@@ -16,15 +15,23 @@
       "import/order": ["error", {
         "groups": ["builtin", "internal", "external", "index", "sibling", "parent"],
         "newlines-between": "always" }],
+      "import/prefer-default-export": ["warn"],
       "no-multi-assign": "off",
       "no-global-assign": "error",
+      "no-underscore-dangle": 0,
       "object-curly-spacing": ["error", "always", {
         "arraysInObjects": false,
         "objectsInObjects": false }],
+      "quote-props": ["warn"],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/jsx-curly-spacing": ["error", {"when": "always", "children": true, "spacing": {
         "objectLiterals": "never"
       }}],
+      "react/jsx-tag-spacing": ["error", {
+        "closingSlash": "never",
+        "beforeSelfClosing": "never",
+        "afterOpening": "never"
+      }],
       "space-in-parens": ["error", "always", { "exceptions": ["[]", "{}", "()"] }],
       "template-curly-spacing": ["error", "always"]
     }

@@ -1,6 +1,8 @@
-import 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import 'purecss';
 import './main.scss';
-import component from './component';
+import RevisionDisplay from './component/RevisionDisplay';
 
-document.body.appendChild( component());
+ReactDOM.render( <RevisionDisplay/>, document.getElementById( 'root' ));

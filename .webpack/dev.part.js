@@ -1,13 +1,14 @@
 const path = require( 'path' );
 
 const webpack = require( 'webpack' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const FriendlyErrorsWebpackPlugin = require( 'friendly-errors-webpack-plugin' );
 const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
-const GitRevisionPlugin = require( 'git-revision-webpack-plugin' );
 const BabiliPlugin = require( 'babili-webpack-plugin' );
 const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 const DuplicatePackageCheckerPlugin = require( 'duplicate-package-checker-webpack-plugin' );
-const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+
+const config = require( './../app/config' );
 
 exports.devServer = ({ host, port, quiet = true } = {}) => ({
   devServer: {
@@ -38,13 +39,10 @@ exports.clean = strPath => ({
   ],
 });
 
-exports.attachRevision = ( revision = new GitRevisionPlugin().version()) => ({
+exports.attachRevision = ( revision = config.GIT_REVISION ) => ({
   plugins: [
     new webpack.BannerPlugin({
       banner: `project revision: ${ revision }`,
-    }),
-    new webpack.DefinePlugin({
-      __APP_REVISION__: JSON.stringify( revision ),
     }),
   ],
 });
@@ -131,13 +129,13 @@ exports.checkAgainstDuplicatePackages = () => ({
 });
 
 exports.page = ({
-  pagePath = '',
-  template = require.resolve( 'html-webpack-plugin/default_index.ejs' ),
+  outPath = '',
+  template = path.resolve( __dirname, '..', 'app', 'static', 'defaultIndexTemplate.ejs' ),
   title,
 } = {}) => ({
   plugins: [
     new HtmlWebpackPlugin({
-      filename: `${ pagePath && `${ pagePath }/` }index.html`,
+      filename: `${ outPath && `${ outPath }/` }index.html`,
       template,
       title,
     }),

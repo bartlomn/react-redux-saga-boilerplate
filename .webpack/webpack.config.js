@@ -3,7 +3,6 @@ require( 'dotenv' ).config();
 const path = require( 'path' );
 
 const glob = require( 'glob' );
-const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 const merge = require( 'webpack-merge' );
 const webpack = require( 'webpack' );
 
@@ -27,10 +26,8 @@ const commonConfig = () => merge([
       path: PATHS.build,
       filename: '[name].[chunkhash].js',
     },
-    plugins: [
-      new HtmlWebpackPlugin({ title: 'Webpack playground' }),
-    ],
   },
+  dev.page({ title: 'Webpack playground' }),
   dev.attachRevision(),
   linters.lintStyles(),
   scripts.transpileJavaScript({ include: PATHS.app }),
