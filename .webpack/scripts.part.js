@@ -13,7 +13,8 @@ exports.transpileJavaScript = ({ include, exclude }) => ({
           // It uses default OS directory by default. If you need
           // something more custom, pass a path to it.
           // I.e., { cacheDirectory: '<path>' }
-          cacheDirectory: './.webpack/cache/',
+          // cacheDirectory: './.webpack/cache/',
+          cacheDirectory: false,
         },
       },
     ],
