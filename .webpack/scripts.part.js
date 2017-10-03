@@ -9,11 +9,11 @@ exports.transpileJavaScript = ({ include, exclude }) => ({
         loader: 'babel-loader',
         options: {
           // Enable caching for improved performance during
-          // development.
+          // development. I.e., { cacheDirectory: true }
           // It uses default OS directory by default. If you need
           // something more custom, pass a path to it.
           // I.e., { cacheDirectory: '<path>' }
-          cacheDirectory: true,
+          cacheDirectory: './.webpack/cache/',
         },
       },
     ],

@@ -13,6 +13,11 @@
         },
         "useBuiltIns": true
       }
-    ]
+    ],
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    ["transform-define", "app/config/defineVariables.js"]
   ]
 }
