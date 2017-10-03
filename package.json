@@ -11,11 +11,12 @@
     "start:simple": "webpack-dev-server --env development --config './.webpack/webpack.config.js' --open",
     "start": "webpack-dashboard -- webpack-dev-server --env development  --config './.webpack/webpack.config.js' --open",
     "test": "nyc ava",
+    "stories": "start-storybook -p 9001 -c ./.storybook",
     "test:watch": "ava --watch"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@storybook/react": "^3.2.11",
     "autoprefixer": "^7.1.3",
