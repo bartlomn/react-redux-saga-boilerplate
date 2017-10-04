@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import RevisionDisplay from './RevisionDisplay';
+import RevisionDisplay from './index';
 
 storiesOf( 'RevisionDisplay', module )
   .add( 'Default (no props)', () => (

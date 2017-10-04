@@ -3,7 +3,7 @@ import React from 'react';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 
-import RevisionDisplay from './';
+import RevisionDisplay from './index';
 
 configure({ adapter: new Adapter() });
 

@@ -1,5 +1,6 @@
 {
     "root": true,
+    "parser": "babel-eslint",
     "extends": "eslint-config-airbnb",
     "env": {
         "browser": true,
@@ -15,7 +16,7 @@
       "import/order": ["error", {
         "groups": ["builtin", "internal", "external", "index", "sibling", "parent"],
         "newlines-between": "always" }],
-      "import/prefer-default-export": ["warn"],
+      "import/prefer-default-export": [0],
       "no-multi-assign": "off",
       "no-global-assign": "error",
       "no-underscore-dangle": 0,

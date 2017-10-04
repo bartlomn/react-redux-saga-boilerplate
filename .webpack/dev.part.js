@@ -18,7 +18,7 @@ exports.devServer = ({ host, port, quiet = true } = {}) => ({
     port,
     overlay: {
       errors: true,
-      warnings: true,
+      warnings: false,
     },
   },
 });
