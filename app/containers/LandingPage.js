@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const LandingPageContainer = ({ children }) => (
@@ -8,7 +9,7 @@ const LandingPageContainer = ({ children }) => (
 );
 
 LandingPageContainer.propTypes = {
-  children: React.PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  children: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default LandingPageContainer;

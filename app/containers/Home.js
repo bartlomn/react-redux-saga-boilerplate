@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import whenDomReady from 'when-dom-ready';
@@ -6,7 +7,7 @@ import { boostrapSeqStart } from './../actions';
 
 export class HomeContaier extends React.Component {
   static propTypes = {
-    dispatch: React.PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
