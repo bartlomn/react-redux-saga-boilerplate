@@ -20,11 +20,11 @@ const PATHS = {
 const commonConfig = () => merge([
   {
     entry: {
-      app: [ 'babel-polyfill', PATHS.app ],
+      app: [ 'react-hot-loader/patch', 'babel-polyfill', PATHS.app ],
     },
     output: {
       path: PATHS.build,
-      filename: '[name].[chunkhash].js',
+      filename: '[name].[hash:8].js',
     },
   },
   dev.page({ title: 'Webpack playground' }),
@@ -73,6 +73,9 @@ const developmentConfig = () => merge([
     output: {
       devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
     },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+    ]
   },
   dev.sourceMaps({ type: 'cheap-module-eval-source-map' }),
   linters.lintJavaScript({ include: PATHS.app }),

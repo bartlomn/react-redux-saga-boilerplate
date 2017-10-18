@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
 
-import createRoutes from './../routes';
+import routes from './../routes';
 
-const routes = createRoutes();
-
-const RootContainer = ({ store, history }) => (
+const RootContainer = ({ store }) => (
   <Provider store={ store }>
-    <Router history={ history } routes={ routes }/>
+    { routes }
   </Provider>
 );
 
 RootContainer.propTypes = {
-  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
